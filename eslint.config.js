@@ -4,7 +4,7 @@ import js from '@eslint/js'
 import pluginVue from 'eslint-plugin-vue'
 import pluginOxlint from 'eslint-plugin-oxlint'
 import skipFormatting from 'eslint-config-prettier/flat'
-import pluginPrettier from 'eslint-plugin-prettier' // ✅ 添加这行
+import pluginPrettier from 'eslint-plugin-prettier'
 
 export default defineConfig([
   {
@@ -25,7 +25,6 @@ export default defineConfig([
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
 
-  // ✅ 添加 Prettier 插件配置
   {
     plugins: {
       prettier: pluginPrettier
@@ -48,7 +47,9 @@ export default defineConfig([
         }
       ],
       'vue/no-setup-props-destructure': ['off'],
-      'no-undef': 'error'
+      'no-undef': 'error',
+      // 强制注释 // 后面必须有空格
+      'spaced-comment': ['error', 'always', { markers: ['/'] }]
     }
   },
 
