@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores'
+
 import LayoutContainer from '@/views/layout/LayoutContainer.vue'
 import ArticleManage from '@/views/article/ArticleManage.vue'
 import ArticleChannel from '@/views/article/ArticleChannel.vue'
@@ -31,4 +33,10 @@ const router = createRouter({
   ]
 })
 
+// 登录访问拦截
+router.beforeEach((to) => {
+  // 如果没有token，且访问的是非登录页面，拦截到登录，其他情况正常放行
+  const userStore = useUserStore()
+  if (!userStore.token && to.path !== '/login') return '/login'
+})
 export default router
